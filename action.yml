@@ -1,0 +1,19 @@
+# action.yml
+name: 'Black Check'
+description: 'GitHub action to run black on your python repository'
+branding:
+  icon: 'check-square'
+  color: 'black'
+inputs:
+  path:
+    description: 'File or directory to run black on'
+    required: false
+    default: '.'
+outputs:
+  output:
+    description: 'The output of black'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.path }}
