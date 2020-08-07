@@ -2,4 +2,4 @@
 set -eax
 
 black --version
-black --check $1
+black --check "$@"
