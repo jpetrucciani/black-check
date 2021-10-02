@@ -1,6 +1,6 @@
 # black-check
-GitHub Action for [black](https://github.com/psf/black)
 
+GitHub Action for [black](https://github.com/psf/black)
 
 ## Inputs
 
@@ -9,6 +9,12 @@ GitHub Action for [black](https://github.com/psf/black)
 **Optional** The path to run black on
 
 **Default** `"."`
+
+### `black_flags`
+
+**Optional** Optional black flags (refer to `black --help`)
+
+**Default** `""`
 
 ## Outputs
 
@@ -23,4 +29,9 @@ uses: jpetrucciani/black-check@master
 uses: jpetrucciani/black-check@master
 with:
   path: '.'
+
+# or specify more flags!
+uses: jpetrucciani/black-check@master
+with:
+  black_flags: '--exclude ./env/'
 ```
