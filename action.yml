@@ -9,6 +9,10 @@ inputs:
     description: 'File or directory to run black on'
     required: false
     default: '.'
+  black_flags:
+    description: 'Optional Black flags (refer to `black --help`)'
+    required: false
+    default: ''
 outputs:
   output:
     description: 'The output of black'
@@ -17,3 +21,4 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.path }}
+    - ${{ inputs.black_flags }}
