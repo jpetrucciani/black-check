@@ -1,0 +1,28 @@
+name: check for black updates
+on: {workflow_dispatch, schedule: [cron: '0 0 * * *']}
+jobs:
+  check-for-updates:
+    runs-on: ubuntu-20.04
+    name: check for black updates
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: x64
+      - name: check version
+        run: |
+          pip install -U black
+          pip freeze | grep 'black==' >requirements.txt
+      - uses: peter-evans/create-pull-request@v3.10.0
+        id: new_pull_request
+        with:
+          delete-branch: true
+          title: automatic black update
+          commit-message: automatic black update
+          branch: automatic-black-update
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - run: gh pr merge --auto --squash ${{ steps.new_pull_request.outputs.pull-request-url }}
