@@ -17,12 +17,15 @@ jobs:
         run: |
           pip install -U black
           pip freeze | grep 'black==' >requirements.txt
+          version="$(sed -E 's#black==(.*)#\1#g' ./requirements.txt)"
+          echo "version=$version" >>$GITHUB_OUTPUT
+          echo "message=automatic black update [$version]" >>$GITHUB_OUTPUT
       - uses: peter-evans/create-pull-request@v3.10.0
         id: new_pull_request
         with:
           delete-branch: true
-          title: automatic black update
-          commit-message: automatic black update
+          title: ${{ steps.version.outputs.message }}
+          commit-message: ${{ steps.version.outputs.message }}
           branch: automatic-black-update
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - if: steps.new_pull_request.outputs.pull-request-url != ''
