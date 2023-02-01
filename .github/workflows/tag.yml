@@ -13,7 +13,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - id: var
         run: |
-          version="$(sed -E 's#ruff==(.*)#\1#g' ./requirements.txt)"
+          version="$(sed -E 's#black==(.*)#\1#g' ./requirements.txt)"
           create_tag="$(git ls-remote --exit-code origin "refs/tags/$version" >/dev/null && echo false || echo true)"
           echo "version=$version" >>$GITHUB_OUTPUT
           echo "create_tag=$create_tag" >>$GITHUB_OUTPUT
