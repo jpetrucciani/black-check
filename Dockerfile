@@ -1,4 +1,4 @@
-FROM python:3.10.9-alpine
+FROM python:3.12.5-alpine
 
 LABEL "maintainer"="Jacobi Petrucciani <j@cobi.dev>"
 
